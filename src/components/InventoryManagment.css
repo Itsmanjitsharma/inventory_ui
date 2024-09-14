@@ -1,0 +1,103 @@
+  .container {
+    width: 90%;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+  
+  .header h1 i {
+    margin-right: 10px;
+    color: #4caf50;
+  }
+  
+  .header .actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header .actions input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .header .actions button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .header .actions .export {
+    background-color: #e0f7fa;
+    color: #00796b;
+  }
+  
+  .header .actions .add-item {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  table th {
+    background-color: #f5f7fa;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  table td {
+    color: #555;
+  }
+  
+  table td img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  
+  table td .actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  table td .actions i {
+    margin-right: 10px;
+    cursor: pointer;
+    color: #888;
+  }
+  
+  table td .actions i:hover {
+    color: #333;
+  }
+  
+  .low-stock {
+    color: #f44336;
+  }
