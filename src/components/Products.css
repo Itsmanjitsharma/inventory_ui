@@ -171,3 +171,10 @@
     margin-right: 10px;
 }
 
+
+.inventoryarea{
+    border: 1px red;
+    height: 100%;
+    width: 100%;
+}
+

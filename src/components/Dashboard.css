@@ -1,0 +1,103 @@
+.dashboardcontainer {
+    display: grid;
+    grid-template-rows: 0.5fr 1.5fr
+  }
+  .cards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: calc(100% - 40px);
+    box-sizing: border-box;
+    display: grid;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+    margin: 0 0 10px;
+  }
+  
+  .card .icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .card .value {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .card .label {
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .card .more {
+    float: right;
+    color: #888;
+  }
+  
+  .card .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .chart {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: calc(100% - 40px);
+    box-sizing: border-box;
+    max-height: 350px;
+  }
+  
+  .chart h3 {
+    font-size: 18px;
+    margin: 0 0 10px;
+  }
+  .iconcontent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 5px;
+}
+.dashboardicons{
+    font-size: 20px;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    border: outset;
+}
+
+.productcontent{
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   justify-content: space-between;
+}
+.productsList{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 0.1px solid rgb(227, 225, 225);
+    margin-bottom: 10px;
+}
+.productsList p{
+    font-weight: bold;
+    margin: 0px;
+}
+.css-1evyvmv-MuiChartsSurface-root{
+   height: 300px;
+}

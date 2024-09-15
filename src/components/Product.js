@@ -1,14 +1,6 @@
 import React from 'react';
-import './Products.css';
-import InventoryIcon from '@mui/icons-material/Inventory';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import PeopleIcon from '@mui/icons-material/People';
-import InventoryManagement from './InventoryManagment';
-import Dashboard from './Dashboard';
-import Product from './Product';
-
-const Products = () => {
+import './Product.css';
+const Product = () => {
     const dishes = [
         {
             id: 1,
@@ -132,45 +124,23 @@ const Products = () => {
         }
     ];
     return (
-        <div className="container">
-            <div className="sidebar">
-                <h1>Grocery Station</h1>
-                <ul>
-                    <li>
-                        <DashboardIcon className='icons' />
-                        <a href="#">Products</a>
-                    </li>
-                    <li>
-                        <InventoryIcon className='icons' />
-                        <a href="#">Inventory</a>
-                    </li>
-                    <li>
-                        <ManageAccountsIcon className='icons' />
-                        <a href="#">Statstic</a>
-                    </li>
-                    <li>
-                        <PeopleIcon className='icons' />
-                        <a href="#">Customers</a>
-                    </li>
-                </ul>
-            </div>
-            <div className="main-content">
-                <div className="header">
-                    <input type="text" placeholder="Search menu, orders and more" />
-                    <div className="user-info">
-                        <img
-                            alt="User profile picture"
-                            src="https://wallpaperaccess.com/full/7126297.jpg"
-                        />
-                        <span>Manjit Sharma</span>
-                    </div>
-                </div>
-                <div className="inventoryarea">
-                    <Product/>
-                </div>
-            </div>
+        <div className="product">
+        <div className="dishes-list">
+                    {dishes.map((dish) => (
+                       <div className="dish-card" key={dish.id}>
+                            <img alt={dish.name} src={dish.image} />
+                            <div className='bottom'>
+                            <h3>{dish.name}</h3>
+                            {dish.description && <p>{dish.description}</p>}
+                            </div>
+                            <div className='bottom'>
+                            {dish.price && <p className="price">{dish.price}</p>}
+                            {dish.item && <p className="itemleft">{dish.item}</p>}
+                            </div>
+                        </div>
+   ))}
+</div>
         </div>
-    );
-};
-
-export default Products;
+    )
+}
+export default Product;
