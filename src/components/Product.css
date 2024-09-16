@@ -23,7 +23,7 @@
     height: 200px;
     padding: 5px;
     text-align: center;
-    margin: 5px;
+    margin: 6px;
     flex: 0 0 150px; /* added this to make each dish card take up a fixed width */
   }
 

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './InventoryManagment.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import AddIcon from '@mui/icons-material/Add';
+import { Modal } from '@mui/material';
+import AddProduct from './AddProduct';
 const InventoryManagement = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const items = [
         {
           itemCode: 'ITEM001',
@@ -126,6 +129,15 @@ const InventoryManagement = () => {
           image: "https://cdn.wikifarmer.com/wp-content/uploads/2023/04/Banana-Crop-History-Nutritional-Value-and-Health-Benefits.jpg",
         }
       ];
+
+      const handleAddProduct = () => {
+        setIsOpen(true);
+      };
+    
+      const handleCloseModal = () => {
+        setIsOpen(false);
+      };
+      
   return (
     <div className="container">
       <table>
@@ -142,7 +154,11 @@ const InventoryManagement = () => {
             <th>Purchase Price</th>
             <th>Sell Price</th>
             <th>On Hand</th>
-            <th>Actions</th>
+            <th className='actionButton'>Actions
+            <button className="add-button" onClick={handleAddProduct}>
+                <AddIcon/>
+              </button>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -170,6 +186,11 @@ const InventoryManagement = () => {
           ))}
         </tbody>
       </table>
+      {isOpen && (
+        <Modal open={isOpen} onClose={handleCloseModal}>
+          <AddProduct onClose={handleCloseModal}/>
+        </Modal>
+      )}
     </div>
   );
 };
