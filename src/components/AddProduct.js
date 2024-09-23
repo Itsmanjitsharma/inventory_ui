@@ -1,33 +1,55 @@
 import React, { useState } from "react";
 import './AddProduct.css';
-import axios, { Axios } from 'axios'; // Add Axios library
-import { Modal } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 
 const AddProduct = ({ onClose }) => {
-    const [productName, setProductName] = useState('');
-  const [productGroup, setProductGroup] = useState('');
+  const [name, setName] = useState('');
+  const [pgroup, setPgroup] = useState('');
   const [sellPrice, setSellPrice] = useState(0);
-  const [purchasePrice, setPurchasePrice] = useState(0);
-  const [onHand, setOnHand] = useState(0);
+  const [purchagePrice, setPurchagePrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const [imageUrl, setImageUrl] = useState('');
 
-  const handleAddProduct = async () => {
-    try {
-      const response = await Axios.post('http://localhost:9999/add-product', {
-        productName,
-        productGroup,
+  const handleAddProduct = async (e) => {
+    e.preventDefault();
+    alert("handleAddProduct");
+    
+    const jsonRequest = [{
+        name,
+        pgroup,
         sellPrice,
-        purchasePrice,
-        onHand,
+        purchagePrice,
+        quantity,
         imageUrl
-      });
-      console.log(response.data);
-      onClose(); // Close the modal after successful API call
+    }];
+
+    try {
+        const response = await fetch('http://localhost:1001/api/products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',  // Add this line to specify JSON format
+            },
+            body: JSON.stringify(jsonRequest)  // Convert JS object to JSON string
+        });
+
+        alert(response.ok);
+        if (response.ok) {
+            alert('Product saved successfully!');
+        } else {
+            alert('Failed to save Product');
+        }
+        setName('');
+        setPgroup('');
+        setPurchagePrice('');
+        setSellPrice('');
+        setQuantity('');
+        setImageUrl('');
     } catch (error) {
-      console.error(error);
+        console.error('Error saving product:', error);
     }
-  };
+};
+
+
 
   return (
    <div className="add-product">
@@ -37,14 +59,14 @@ const AddProduct = ({ onClose }) => {
         <input
           type="text"
           placeholder="Product Name"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
           placeholder="Product Group"
-          value={productGroup}
-          onChange={(e) => setProductGroup(e.target.value)}
+          value={pgroup}
+          onChange={(e) => setPgroup(e.target.value)}
         />
         <input
           type="number"
@@ -55,14 +77,14 @@ const AddProduct = ({ onClose }) => {
         <input
           type="number"
           placeholder="Purchase Price"
-          value={purchasePrice}
-          onChange={(e) => setPurchasePrice(e.target.value)}
+          value={purchagePrice}
+          onChange={(e) => setPurchagePrice(e.target.value)}
         />
         <input
           type="number"
           placeholder="On Hand"
-          value={onHand}
-          onChange={(e) => setOnHand(e.target.value)}
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
         />
         <input
           type="text"

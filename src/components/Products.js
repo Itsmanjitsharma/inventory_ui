@@ -6,23 +6,44 @@ import Sidebar from './Sidebar';
 import InventoryManagement from './InventoryManagment';
 import Dashboard from './Dashboard';
 import Header from './Header';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import { Outlet } from 'react-router-dom'; // Import Outlet for nested routes
+import PrivateRoute from './PrivateRoutes';
+import { AuthProvider } from './AuthContext';
+
+
+const Layout = () => {
+  return (
+    <div className="container">
+      <Sidebar />
+      <div className="main-content">
+        <Header />
+        <Outlet /> {/* Renders child routes here */}
+      </div>
+    </div>
+  );
+};
 
 const Products = () => {
   return (
-    <BrowserRouter>
-      <div className="container">
-        <Sidebar />
-        <div className="main-content">
-          <Header />
-          <Routes>
-            <Route path="/" element={<Product />} />
-            <Route path="/Products" element={<Product />} />
-            <Route path="/Inventory" element={<InventoryManagement />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
-          </Routes>
-        </div>
-      </div>
+    <AuthProvider>  {/* Wrap the entire app in AuthProvider */}
+    <BrowserRouter>  {/* BrowserRouter wrapping the entire app */}
+      <Routes>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        
+        {/* Define the layout for the /app route and its children */}
+        <Route path="/" element={
+          <PrivateRoute><Layout /></PrivateRoute>}>
+          <Route path="/products" element={<Product />} />
+          <Route path="/inventory" element={<InventoryManagement />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
+    </AuthProvider>
+
   );
 };
 

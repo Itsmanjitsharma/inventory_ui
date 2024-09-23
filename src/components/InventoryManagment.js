@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './InventoryManagment.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -7,7 +7,7 @@ import { Modal } from '@mui/material';
 import AddProduct from './AddProduct';
 const InventoryManagement = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const items = [
+    /*const items = [
         {
           itemCode: 'ITEM001',
           itemName: 'Apple',
@@ -128,7 +128,41 @@ const InventoryManagement = () => {
           onHand: 20,
           image: "https://cdn.wikifarmer.com/wp-content/uploads/2023/04/Banana-Crop-History-Nutritional-Value-and-Health-Benefits.jpg",
         }
-      ];
+      ];*/
+
+      const [items,setItems] = useState([]);
+      useEffect(() => {
+        // Fetch data from the API with Authorization token
+        const fetchData = async () => {
+          try {
+            const token = localStorage.getItem('token'); // or retrieve from context, state, etc.
+            
+            const response = await fetch('http://localhost:1001/api/products', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                //'Authorization': `Bearer ${token}` // Add the Authorization header with the token
+              },
+            });
+            console.log(response);
+            if (!response.ok) {
+              throw new Error('Failed to fetch dishes');
+            }
+            
+            const data = await response.json();
+
+            setItems(data);
+            console.log(data)
+            //setDishes(data); // Set the fetched data to dishes state
+            
+          } catch (error) {
+            console.error('Error fetching dishes:', error);
+           // setDishes([]); // Handle error by setting dishes to an empty array
+          }
+        };
+      
+        fetchData();
+      }, []);
 
       const handleAddProduct = () => {
         setIsOpen(true);
@@ -167,17 +201,17 @@ const InventoryManagement = () => {
               <td>
                 <input type="checkbox" />
               </td>
-              <td>{item.itemCode}</td>
+              <td>{item.productid}</td>
               <td>
                 {/* Add photo here */}
-                <img src={item.image} alt={item.itemName} />
+                <img src={item.imageUrl} alt={item.name} />
               </td>
-              <td>{item.itemName}</td>
-              <td>{item.itemGroup}</td>
+              <td>{item.name}</td>
+              <td>{item.pgroup}</td>
               <td>{item.lastPurchase}</td>
-              <td>{item.purchasePrice}</td>
+              <td>{item.purchagePrice}</td>
               <td>{item.sellPrice}</td>
-              <td>{item.onHand}</td>
+              <td>{item.quantity}</td>
               <td className='buttons'>
                 <button><EditIcon/></button>
                 <button><DeleteIcon/></button>

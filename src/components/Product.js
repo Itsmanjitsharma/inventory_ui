@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Product.css';
 const Product = () => {
-    const dishes = [
+    /*const dishes = [
         {
             id: 1,
             image: "https://tse2.mm.bing.net/th?id=OIP.62lh_jf8pV1ChKKRvc6KMAHaD5&pid=Api&P=0&h=180",
@@ -122,20 +122,57 @@ const Product = () => {
             price: "₹ 180.00",
             item: 12
         }
-    ];
+    ];*/
+
+
+    const [dishes,setDishes] = useState([]);
+
+    useEffect(() => {
+        // Fetch data from the API with Authorization token
+        const fetchData = async () => {
+          try {
+            const token = localStorage.getItem('token'); // or retrieve from context, state, etc.
+            
+            const response = await fetch('http://localhost:1001/api/products', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                //'Authorization': `Bearer ${token}` // Add the Authorization header with the token
+              },
+            });
+            console.log(response);
+            if (!response.ok) {
+              throw new Error('Failed to fetch dishes');
+            }
+            
+            const data = await response.json();
+
+            setDishes(data);
+            console.log(data)
+            //setDishes(data); // Set the fetched data to dishes state
+            
+          } catch (error) {
+            console.error('Error fetching dishes:', error);
+           // setDishes([]); // Handle error by setting dishes to an empty array
+          }
+        };
+      
+        fetchData();
+      }, []); // Empty dependency array ensures this runs once when component mounts
+      
     return (
         <div className="product">
         <div className="dishes-list">
                     {dishes.map((dish) => (
                        <div className="dish-card" key={dish.id}>
-                            <img alt={dish.name} src={dish.image} />
+                            <img alt={dish.name} src={dish.imageUrl} />
                             <div className='bottom'>
                             <h3>{dish.name}</h3>
-                            {dish.description && <p>{dish.description}</p>}
+                            {dish.pgroup && <p>{dish.pgroup}</p>}
                             </div>
                             <div className='bottom'>
-                            {dish.price && <p className="price">{dish.price}</p>}
-                            {dish.item && <p className="itemleft">{dish.item}</p>}
+                            {dish.sellPrice && <p className="price">{dish.sellPrice}</p>}
+                            {dish.quantity && <p className="itemleft">{dish.quantity}</p>}
                             </div>
                         </div>
    ))}

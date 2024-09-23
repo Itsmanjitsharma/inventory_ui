@@ -27,6 +27,10 @@ const Sidebar = () =>{
                 <PeopleIcon className='icons' />
                 <NavLink to="/Customers">Customers</NavLink>
             </li>
+            <li>
+                <PeopleIcon className='icons' />
+                <NavLink to="/signup">Log Out</NavLink>
+            </li>
         </ul>
     </div>
     )

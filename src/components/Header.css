@@ -20,3 +20,8 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.chart-icon{
+    margin-left: 10px;
+    cursor: pointer;
+}
