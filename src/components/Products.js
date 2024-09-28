@@ -11,6 +11,8 @@ import SignUp from './SignUp';
 import { Outlet } from 'react-router-dom'; // Import Outlet for nested routes
 import PrivateRoute from './PrivateRoutes';
 import { AuthProvider } from './AuthContext';
+import CustomerOrder from './CustomerOrder';
+import BillHistory from './BillHistory';
 
 
 const Layout = () => {
@@ -18,7 +20,7 @@ const Layout = () => {
     <div className="container">
       <Sidebar />
       <div className="main-content">
-        <Header />
+        {/* <Header /> */}
         <Outlet /> {/* Renders child routes here */}
       </div>
     </div>
@@ -38,6 +40,8 @@ const Products = () => {
           <PrivateRoute><Layout /></PrivateRoute>}>
           <Route path="/products" element={<Product />} />
           <Route path="/inventory" element={<InventoryManagement />} />
+          <Route path="/billing"  element={<CustomerOrder />} />
+          <Route path="/billingHistory"  element={<BillHistory />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
       </Routes>

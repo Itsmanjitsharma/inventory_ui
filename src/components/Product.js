@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Product.css';
+import ProductHistory from './ProductHistory';
+import { Modal } from '@mui/material';
 const Product = () => {
     /*const dishes = [
         {
@@ -126,7 +128,11 @@ const Product = () => {
 
 
     const [dishes,setDishes] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
 
+    const handleCloseModal = () => {
+        setIsOpen(false);
+      };
     useEffect(() => {
         // Fetch data from the API with Authorization token
         const fetchData = async () => {
@@ -177,6 +183,9 @@ const Product = () => {
                         </div>
    ))}
 </div>
+        <Modal open={isOpen}>
+        <ProductHistory handleCloseModal={handleCloseModal} />
+        </Modal>
         </div>
     )
 }

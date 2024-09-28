@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './AddProduct.css';
 import ClearIcon from '@mui/icons-material/Clear';
 
-const AddProduct = ({ onClose }) => {
+const AddProduct = ({handleCloseModal }) => {
   const [name, setName] = useState('');
   const [pgroup, setPgroup] = useState('');
   const [sellPrice, setSellPrice] = useState(0);
@@ -11,9 +11,7 @@ const AddProduct = ({ onClose }) => {
   const [imageUrl, setImageUrl] = useState('');
 
   const handleAddProduct = async (e) => {
-    e.preventDefault();
-    alert("handleAddProduct");
-    
+    e.preventDefault();    
     const jsonRequest = [{
         name,
         pgroup,
@@ -32,7 +30,6 @@ const AddProduct = ({ onClose }) => {
             body: JSON.stringify(jsonRequest)  // Convert JS object to JSON string
         });
 
-        alert(response.ok);
         if (response.ok) {
             alert('Product saved successfully!');
         } else {
@@ -54,7 +51,7 @@ const AddProduct = ({ onClose }) => {
   return (
    <div className="add-product">
     <h2 className="title">Add Product</h2>
-    <ClearIcon className="clearIcon" onClick={()=>onClose()}/>
+    <ClearIcon className="clearIcon" onClick={handleCloseModal} />
       <form className="form-details">
         <input
           type="text"

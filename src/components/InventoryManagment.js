@@ -2,229 +2,94 @@ import React, { useEffect, useState } from 'react';
 import './InventoryManagment.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 import { Modal } from '@mui/material';
 import AddProduct from './AddProduct';
+import DataTable from './DataTable';
+import { v4 as uuidv4 } from 'uuid';
+
+
 const InventoryManagement = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    /*const items = [
-        {
-          itemCode: 'ITEM001',
-          itemName: 'Apple',
-          itemGroup: 'Fruit',
-          lastPurchase: '2023-03-15',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 100,
-          image:"https://tse2.mm.bing.net/th?id=OIP.62lh_jf8pV1ChKKRvc6KMAHaD5&pid=Api&P=0&h=180"
-        },
-        {
-          itemCode: 'ITEM002',
-          itemName: 'Banana',
-          itemGroup: 'Fruit',
-          lastPurchase: '2023-03-10',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 50,
-          image: "https://5.imimg.com/data5/VU/FW/MY-17256771/toor-dal.jpg",
-        },
-        {
-          itemCode: 'ITEM003',
-          itemName: 'Orange',
-          itemGroup: 'Fruit',
-          lastPurchase: '2023-03-05',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 20,
-          image: "https://tse4.mm.bing.net/th?id=OIP.HqNNeb007vdUsocitEE0jAHaE8&pid=Api&P=0&h=180",
-        },
-        {
-          itemCode: 'ITEM004',
-          itemName: 'Milk',
-          itemGroup: 'Dairy',
-          lastPurchase: '2023-03-15',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 100,
-          image: "https://www.thespruce.com/thmb/TMRYcJe21L7W5Rn2R8jDqIfVSCk=/5750x3829/filters:fill(auto,1)/top-tomato-growing-tips-1402587-11-c6d6161716fd448fbca41715bbffb1d9.jpg",
-        },
-        {
-          itemCode: 'ITEM005',
-          itemName: 'Yogurt',
-          itemGroup: 'Dairy',
-          lastPurchase: '2023-03-10',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 50,
-          image: "https://www.netmeds.com/images/cms/wysiwyg/blog/2023/05/1683696515_Brinjal-_898x450.jpg",
-        },
-        {
-          itemCode: 'ITEM006',
-          itemName: 'Cheese',
-          itemGroup: 'Dairy',
-          lastPurchase: '2023-03-05',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 20,
-          image: "http://upload.wikimedia.org/wikipedia/commons/7/74/Big_red_apple.jpg",
-        },
-        {
-          itemCode: 'ITEM007',
-          itemName: 'Bread',
-          itemGroup: 'Bakery',
-          lastPurchase: '2023-03-15',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 100,
-          image: "https://tse3.mm.bing.net/th?id=OIP.q3JCo-zLI3ugZQhgNyFoFwHaIt&pid=Api&P=0&h=180",
-        },
-        {
-          itemCode: 'ITEM008',
-          itemName: 'Cake',
-          itemGroup: 'Bakery',
-          lastPurchase: '2023-03-10',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 50,
-          image: "http://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg",
-        },
-        {
-          itemCode: 'ITEM009',
-          itemName: 'Cookies',
-          itemGroup: 'Bakery',
-          lastPurchase: '2023-03-05',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 20,
-          image: "https://cdn.wikifarmer.com/wp-content/uploads/2023/04/Banana-Crop-History-Nutritional-Value-and-Health-Benefits.jpg",
-        },
-        {
-          itemCode: 'ITEM010',
-          itemName: 'Cookies',
-          itemGroup: 'Bakery',
-          lastPurchase: '2023-03-05',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 20,
-          image: "https://cdn.wikifarmer.com/wp-content/uploads/2023/04/Banana-Crop-History-Nutritional-Value-and-Health-Benefits.jpg",
-        },
-        {
-          itemCode: 'ITEM011',
-          itemName: 'Cookies',
-          itemGroup: 'Bakery',
-          lastPurchase: '2023-03-05',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 20,
-          image: "https://cdn.wikifarmer.com/wp-content/uploads/2023/04/Banana-Crop-History-Nutritional-Value-and-Health-Benefits.jpg",
-        },
-        {
-          itemCode: 'ITEM012',
-          itemName: 'Cookies',
-          itemGroup: 'Bakery',
-          lastPurchase: '2023-03-05',
-          sellPrice: 120,
-          purchasePrice: 140,
-          onHand: 20,
-          image: "https://cdn.wikifarmer.com/wp-content/uploads/2023/04/Banana-Crop-History-Nutritional-Value-and-Health-Benefits.jpg",
+  const [isOpen, setIsOpen] = useState(false);
+  const [items, setItems] = useState([]);
+
+  /*useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:1001/api/products', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
         }
-      ];*/
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchData();
+  }, []);*/
 
-      const [items,setItems] = useState([]);
-      useEffect(() => {
-        // Fetch data from the API with Authorization token
-        const fetchData = async () => {
-          try {
-            const token = localStorage.getItem('token'); // or retrieve from context, state, etc.
-            
-            const response = await fetch('http://localhost:1001/api/products', {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                //'Authorization': `Bearer ${token}` // Add the Authorization header with the token
-              },
-            });
-            console.log(response);
-            if (!response.ok) {
-              throw new Error('Failed to fetch dishes');
-            }
-            
-            const data = await response.json();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:1001/api/products', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        const itemsWithId = data.map((item) => ({ ...item, id: item.productid }));
+        setItems(itemsWithId);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchData();
+  }, []);
+  const handleAddProduct = () => {
+    setIsOpen(true);
+  };
 
-            setItems(data);
-            console.log(data)
-            //setDishes(data); // Set the fetched data to dishes state
-            
-          } catch (error) {
-            console.error('Error fetching dishes:', error);
-           // setDishes([]); // Handle error by setting dishes to an empty array
-          }
-        };
-      
-        fetchData();
-      }, []);
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
 
-      const handleAddProduct = () => {
-        setIsOpen(true);
-      };
-    
-      const handleCloseModal = () => {
-        setIsOpen(false);
-      };
-      
   return (
     <div className="container">
-      <table>
-        <thead>
-          <tr>
-            <th>
-              <input type="checkbox" />
-            </th>
-            <th>Item Code.</th>
-            <th>Photo</th>
-            <th>Item Name</th>
-            <th>Item Group</th>
-            <th>Last Purchase</th>
-            <th>Purchase Price</th>
-            <th>Sell Price</th>
-            <th>On Hand</th>
-            <th className='actionButton'>Actions
-            <button className="add-button" onClick={handleAddProduct}>
-                <AddIcon/>
-              </button>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-        {items.map((item, index) => (
-            <tr key={index}>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>{item.productid}</td>
-              <td>
-                {/* Add photo here */}
-                <img src={item.imageUrl} alt={item.name} />
-              </td>
-              <td>{item.name}</td>
-              <td>{item.pgroup}</td>
-              <td>{item.lastPurchase}</td>
-              <td>{item.purchagePrice}</td>
-              <td>{item.sellPrice}</td>
-              <td>{item.quantity}</td>
-              <td className='buttons'>
-                <button><EditIcon/></button>
-                <button><DeleteIcon/></button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {isOpen && (
-        <Modal open={isOpen} onClose={handleCloseModal}>
-          <AddProduct onClose={handleCloseModal}/>
+      <div className="table-container">
+        <div className="table-header">
+          <div className="search-container">
+            <input type="text" placeholder="Search" />
+            <div className="filters">
+              Filters
+              <i className="fas fa-chevron-down" />
+            </div>
+          </div>
+          <div className="buttons">
+            <button className="export">
+              Export
+              <i className="fas fa-chevron-down" />
+            </button>
+            <button className="new-product" onClick={handleAddProduct}>
+              New product
+            </button>
+          </div>
+        </div>
+        <div className="table-body">
+        <DataTable rows={items}/>
+        </div>
+        <Modal open={isOpen}>
+        <AddProduct handleCloseModal={handleCloseModal} />
         </Modal>
-      )}
+      </div>
     </div>
   );
 };
